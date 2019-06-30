@@ -1,0 +1,34 @@
+@at-root body {
+  background-color: $mdc-theme-surface;
+}
+
+.inner-body {
+  position: relative;
+  min-height: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  clip: rect(0,0,0,0);
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  clip: auto;
+}
+
+@import "material/toolbar";
+
+.skip-to-main {
+  @extend .sr-only;
+  @extend .sr-only-focusable;
+  @extend .toolbar;
+  @extend .toolbar.fixed;
+  display: block;
+  height: 64px;
+  text-decoration: none;
+  .title {
+    padding: 9pt;
+    border: 1px dotted $mdc-theme-on-primary;
+  }
+}

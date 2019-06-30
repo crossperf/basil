@@ -1,0 +1,72 @@
+<header class="container brand">BASiL</header>
+<nav class="container">
+  <ul class="navigation">
+    <li class="item" :class="{'active': category == 'appetizer'}"><a href="/appetizers">Appetizers</a></li>
+    <li class="item" :class="{'active': category == 'entrée'}"><a href="/">Entrées</a></li>
+    <li class="item" :class="{'active': category == 'dessert'}"><a href="/desserts">Desserts</a></li>
+    <li class="item" :class="{'active': category == 'cocktail'}"><a href="/cocktails">Cocktails</a></li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div id="content">
+  <div class="container">
+    <ul class="recipes">
+      <li class="item first-recipe" v-if="first_recipe.image.is_some()">
+        <a :href="first_recipe.url.as_ref().unwrap()">
+          <img class="image" :src="first_recipe.image.as_ref().unwrap()" />
+          <div class="supporting">
+            <span class="label">{{ first_recipe.label.as_ref().unwrap() }}</span>
+          </div>
+        </a>
+      </li>
+      <li class="item" v-for="recipe in first_recipes">
+        <div class="message-tile aspect-ratio a-50" v-if="recipe.message.is_some()">
+          <div class="fill-outer message-border">
+            <div class="message">
+              <p>{{ recipe.message.as_ref().unwrap() }}</p>
+            </div>
+          </div>
+        </div>
+        <a :href="recipe.url.as_ref().unwrap()" v-else>
+          <img class="image" :src="recipe.image.as_ref().unwrap()" />
+          <div class="supporting">
+            <span class="label">{{ recipe.label.as_ref().unwrap() }}</span>
+          </div>
+        </a>
+      </li>
+      <li class="three-break"></li>
+      <li class="item" v-for="recipe in second_recipes">
+        <div class="message-tile aspect-ratio a-50" v-if="recipe.message.is_some()">
+          <div class="fill-outer message-border">
+            <div class="message">
+              <p>{{ recipe.message.as_ref().unwrap() }}</p>
+            </div>
+          </div>
+        </div>
+        <a :href="recipe.url.as_ref().unwrap()" v-else>
+          <img class="image" :src="recipe.image.as_ref().unwrap()" />
+          <div class="supporting">
+            <span class="label">{{ recipe.label.as_ref().unwrap() }}</span>
+          </div>
+        </a>
+      </li>
+      <li class="five-break"></li>
+      <li class="item" v-for="recipe in more_recipes">
+        <div class="message-tile aspect-ratio a-50" v-if="recipe.message.is_some()">
+          <div class="fill-outer message-border">
+            <div class="message">
+              <p>{{ recipe.message.as_ref().unwrap() }}</p>
+            </div>
+          </div>
+        </div>
+        <a :href="recipe.url.as_ref().unwrap()" v-else>
+          <img class="image" :src="recipe.image.as_ref().unwrap()" />
+          <div class="supporting">
+            <span class="label">{{ recipe.label.as_ref().unwrap() }}</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </div>
+</div>

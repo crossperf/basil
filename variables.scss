@@ -1,0 +1,48 @@
+$mdc-theme-primary: #356859;
+$mdc-theme-secondary: #fd5523;
+$mdc-theme-surface: #fffbe6;
+
+$mdc-typography-font-family: Montserrat, sans-serif;
+$mdc-typography-font-family-secondary: Lekton, serif;
+
+$mdc-typography-font-weight-values: (
+  thin: 100,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  bold: 600,
+  black: 700
+) !default;
+
+$mdc-typography-styles-body1: (
+    font-family: $mdc-typography-font-family-secondary,
+);
+
+$mdc-typography-styles-body2: (
+    font-family: $mdc-typography-font-family-secondary,
+);
+
+$mdc-typography-styles-subtitle1: (
+    color: $mdc-theme-primary,
+);
+
+$mdc-typography-styles-subtitle2: (
+    color: $mdc-theme-secondary,
+);
+
+$mdc-typography-styles-headline1: (
+    color: $mdc-theme-primary,
+);
+
+$mdc-typography-styles-headline2: (
+    color: $mdc-theme-primary,
+    font-weight: map-get($mdc-typography-font-weight-values, bold),
+);
+
+$mdc-typography-styles-button: (
+    color: $mdc-theme-primary,
+    font-weight: map-get($mdc-typography-font-weight-values, medium),
+);
+
+@import "material/all";
+

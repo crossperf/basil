@@ -1,0 +1,6 @@
+.error-message h1 {
+  @include mdc-typography(headline1);
+  color: $mdc-theme-error;
+  margin-top: 2rem;
+  text-align: center;
+}
