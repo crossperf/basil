@@ -5,9 +5,5 @@
   "display": "standalone",
   "background_color": "#fffbe6",
   "theme_color": "#356859",
-  "icons": [{
-    "src": "/s/basil-192.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  }]
+  "icons": []
 }
