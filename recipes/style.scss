@@ -12,15 +12,16 @@
     margin: 0.5rem 1rem;
     list-style-type: none;
     &.active {
-      border-bottom: 1px solid $mdc-theme-primary;
+      border-bottom: 1px solid $primary;
       a {
-        font-weight: map-get($mdc-typography-font-weight-values, black);
+        font-weight: 700;
       }
     }
     a {
       display: block;
       padding: 0.1rem 0;
-      @include mdc-typography(button);
+      text-decoration: none;
+      @include typography(button);
     }
   }
 }
@@ -46,8 +47,8 @@
   margin: 0 auto;
   padding: 0.5rem 0.5rem;
   &.brand {
-    @include mdc-typography(headline2);
-    letter-spacing: mdc-typography-get-letter-spacing_(7, 3.75);
+    @include typography(headline2);
+    letter-spacing: .1166em;
     text-align: center;
     padding-top: 1.5rem;
   }
@@ -83,20 +84,20 @@
       margin-bottom: 2.125rem;
     }
     .message-border {
-      border-top: 1px solid lighten($mdc-theme-primary, 20%);
-      border-bottom: 1px solid lighten($mdc-theme-primary, 20%);
+      border-top: 1px solid lighten($primary, 20%);
+      border-bottom: 1px solid lighten($primary, 20%);
     }
     .message {
       height: 100%;
       transform: translateY(50%);
       p {
-        @include mdc-typography(body1);
-        font-weight: map-get($mdc-typography-font-weight-values, bold);
+        @include typography(body1);
+        font-weight: 600;
         line-height: 1.25rem;
         margin: 0;
         text-align: center;
         transform: translateY(-50%);
-        color: $mdc-theme-primary;
+        color: $primary;
         margin: 0 2rem;
       }
     }
@@ -107,8 +108,8 @@
     height: 1.125rem;
   }
   .label {
-    @include mdc-typography(subtitle2);
-    font-weight: map-get($mdc-typography-font-weight-values, bold);
+    @include typography(subtitle2);
+    font-weight: 600;
   }
 }
 

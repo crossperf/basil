@@ -1,10 +1,11 @@
 @at-root body {
-  background-color: $mdc-theme-surface;
+  background-color: $surface;
 }
 
 .inner-body {
   position: relative;
   min-height: 100%;
+  padding-bottom: 3.5rem;
 }
 
 .sr-only {
@@ -13,22 +14,24 @@
 }
 
 .sr-only-focusable:focus {
-  position: static;
   clip: auto;
 }
-
-@import "material/toolbar";
 
 .skip-to-main {
   @extend .sr-only;
   @extend .sr-only-focusable;
-  @extend .toolbar;
-  @extend .toolbar.fixed;
+  @include elevation(8);
+  z-index: 8;
+  background: $primary;
   display: block;
-  height: 64px;
+  height: 4rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.75rem;
   text-decoration: none;
   .title {
-    padding: 9pt;
-    border: 1px dotted $mdc-theme-on-primary;
+    display: inline-block;
+    @include typography(headline6);
+    padding: 0.75rem;
+    color: $on-primary;
   }
 }

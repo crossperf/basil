@@ -1,22 +1,7 @@
-use super::Recipe;
-use crate::prelude::*;
-
 pub const ID: u32 = 0x93a8_4241;
 
-#[derive(TryFromPrimitive, Payload)]
-#[repr(u8)]
-#[payload(Recipes)]
-pub enum PayloadType {
-    #[payload(request)]
-    Load,
-    #[payload(response)]
-    Data,
-}
-
-#[derive(Message, Pack, Default, Clone)]
-#[pack(ID, Load)]
+#[req]
 pub struct Load {
-    #[prost(string, tag = "1")]
     pub category: String,
 }
 
@@ -30,64 +15,55 @@ impl Load {
 
 #[cfg(feature = "server")]
 impl Request for Load {
-    fn handle_request(&self, connection: &server::Connection) -> Result<Vec<Packed>, Error> {
-        let data = database::recipes(connection, &self.category)?;
-        Ok(vec![data.pack()])
+    #[throws]
+    fn handle_request(self, connection: &server::Connection, identity: &UserIdentity) -> Vec<Packed> {
+        let recipes = database::Recipe::from_category(connection, &self.category)?
+            .into_iter()
+            .map(|x| x.into_message(connection))
+            .collect::<Result<Vec<Recipe>, Error>>()?;
+        vec![pack_set_recipes(recipes)]
     }
 }
 
-#[derive(Message, Pack, Default)]
-#[pack(ID, Data)]
-pub struct Data {
-    #[prost(message, repeated, tag = "1")]
-    pub recipes: Vec<Recipe>,
-}
-
-impl Data {
-    fn handle_response(self, state: &mut Recipes) {
-        state.set_recipes(self.recipes);
-    }
-}
-
-#[cfg(feature = "server")]
-mod database {
-    use super::{Data, Recipe};
-    use crate::interactive::Image;
-    use diesel::QueryResult;
-    use server::Connection;
-
-    #[derive(Queryable)]
-    struct RawRecipe {
-        slug: String,
-        title: String,
-        image: String,
-    }
-
-    impl RawRecipe {
-        fn into_item(self, connection: &Connection) -> QueryResult<Recipe> {
-            Ok(Recipe {
-                label: Some(self.title),
-                url: Some(format!("/recipe/{}", &self.slug)),
-                message: None,
-                image: Some(
-                    Image::from_database(connection, &self.image)?
-                        .unwrap_or_else(|| Image::placeholder()).with_ratio(50)
-                ),
-            })
+impl Recipe {
+    pub fn from_placeholder() -> Self {
+        Self {
+            slug: "".to_owned(),
+            title: "".to_owned(),
+            image: Some(Image::placeholder().with_ratio(50)),
         }
     }
 
-    pub fn recipes(connection: &Connection, filter_category: &str) -> QueryResult<Data> {
-        use crate::schema::*;
-        use diesel::prelude::*;
-        let recipes = recipe::table
-            .filter(recipe::category.eq(filter_category))
-            .select((recipe::slug, recipe::title, recipe::image))
-            .load::<RawRecipe>(connection)?;
-        let recipes = recipes
-            .into_iter()
-            .map(|recipe| recipe.into_item(connection))
-            .collect::<QueryResult<Vec<Recipe>>>()?;
-        Ok(Data { recipes })
+    pub fn from_message<T: Into<String>>(message: T) -> Self {
+        Self {
+            title: message.into(),
+            ..Default::default()
+        }
+    }
+
+    fn label(&self) -> Option<String> {
+        if self.slug.is_empty() {
+            None
+        } else {
+            Some(self.title.clone())
+        }
+    }
+
+    fn url(&self) -> Option<String> {
+        if self.slug.is_empty() && self.title.is_empty() {
+            Some("#".to_string())
+        } else if self.slug.is_empty() {
+            None
+        } else {
+            Some(format!("/recipe/{}", &self.slug))
+        }
+    }
+
+    fn message(&self) -> Option<String> {
+        if self.slug.is_empty() {
+            Some(self.title.clone())
+        } else {
+            None
+        }
     }
 }

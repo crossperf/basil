@@ -1,48 +1,91 @@
-$mdc-theme-primary: #356859;
-$mdc-theme-secondary: #fd5523;
-$mdc-theme-surface: #fffbe6;
+$primary: #356859;
+$on-primary: #fff;
+$secondary-surface: #e9e9e9;
+$secondary: #fd5523;
+$on-secondary: #333;
+$surface: #fffbe6;
+$on-surface: #333;
+$border-radius: 0;
 
-$mdc-typography-font-family: Montserrat, sans-serif;
-$mdc-typography-font-family-secondary: Lekton, serif;
+$font-primary: Montserrat, sans-serif;
+$font-secondary: Lekton, serif;
+$font-family: $font-primary;
 
-$mdc-typography-font-weight-values: (
-  thin: 100,
-  light: 300,
-  regular: 400,
-  medium: 500,
-  bold: 600,
-  black: 700
-) !default;
-
-$mdc-typography-styles-body1: (
-    font-family: $mdc-typography-font-family-secondary,
+$typography: (
+  headline1: (
+    font-size: 96,
+    font-weight: 200,
+    letter-spacing: -1.5,
+    font-family: $font-family,
+  ),
+  headline2: (
+    font-size: 60,
+    font-weight: 600,
+    letter-spacing: -0.5,
+    font-family: $font-family,
+    color: $primary,
+  ),
+  headline3: (
+    font-size: 48,
+    letter-spacing: 0,
+    font-family: $font-family,
+  ),
+  headline4: (
+    font-size: 34,
+    letter-spacing: 0.25,
+    font-family: $font-family,
+  ),
+  headline5: (
+    font-size: 24,
+    letter-spacing: 0,
+    font-family: $font-family,
+  ),
+  headline6: (
+    font-size: 20,
+    letter-spacing: 0.25,
+    font-family: $font-family,
+  ),
+  subtitle1: (
+    font-size: 16,
+    letter-spacing: 0.15,
+    font-family: $font-family,
+    color: $primary,
+  ),
+  subtitle2: (
+    font-size: 14,
+    letter-spacing: 0.1,
+    font-family: $font-family,
+    color: $secondary,
+  ),
+  body1: (
+    font-size: 16,
+    letter-spacing: 0.5,
+    font-family: $font-secondary,
+  ),
+  body2: (
+    font-size: 14,
+    letter-spacing: 0.25,
+    font-family: $font-secondary,
+  ),
+  button: (
+    font-size: 14,
+    letter-spacing: 1.25,
+    text-transform: uppercase,
+    font-family: $font-family,
+    font-weight: 500,
+    color: $primary,
+  ),
+  caption: (
+    font-size: 12,
+    letter-spacing: 0.4,
+    font-family: $font-family,
+  ),
+  overline: (
+    font-size: 10,
+    letter-spacing: 2,
+    text-transform: uppercase,
+    font-family: $font-family,
+  ),
 );
 
-$mdc-typography-styles-body2: (
-    font-family: $mdc-typography-font-family-secondary,
-);
-
-$mdc-typography-styles-subtitle1: (
-    color: $mdc-theme-primary,
-);
-
-$mdc-typography-styles-subtitle2: (
-    color: $mdc-theme-secondary,
-);
-
-$mdc-typography-styles-headline1: (
-    color: $mdc-theme-primary,
-);
-
-$mdc-typography-styles-headline2: (
-    color: $mdc-theme-primary,
-    font-weight: map-get($mdc-typography-font-weight-values, bold),
-);
-
-$mdc-typography-styles-button: (
-    color: $mdc-theme-primary,
-    font-weight: map-get($mdc-typography-font-weight-values, medium),
-);
-
-@import "material/all";
-
+@import "material/theme";

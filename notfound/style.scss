@@ -1,0 +1,6 @@
+.error-message h1 {
+  @include typography(headline1);
+  color: #b00020;
+  margin-top: 2rem;
+  text-align: center;
+}

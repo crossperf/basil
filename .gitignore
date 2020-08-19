@@ -1,2 +1,6 @@
-/migrations
+mod.rs
+generated
 /schema.rs
+/migrations
+/build.yml
+/i18n/template.pot
